@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+        <title>Responsive Table Generator</title>
+        <meta name='description' content='A CSS and HTML responsive table generator by Russell Goldenberg.'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' href='http://russellgoldenberg.github.io/responsive-table-generator/base.css'>
+        
+    </head>
+    <body>
+        <div class='container'>
+            <section>
+                <h2>Globe audio player v0.1</h2>
+                <p class='intro'>
+                    How to embed an mp3 in a story.
+                </p>
+                <p class='instructions'>
+                    1. Create a folder for your story in WebGraphics.
+                    <br>Example: Boston/Content/Metro/WebGraphics/2015/07/02test
+                </p>
+                <p class='instructions'>
+                    2. Create a new object in that folder called audio.jpt (type Web)
+                </p>
+                <p class='instructions'>
+                    3. Add your mp3 file to that folder
+                </p>
+                <p class='instructions'>
+                    4. Copy and paste the content below into the .jpt file
+                </p>
+                <textarea><!-- begin customize -->
+<div class='globe-audio-player' 
+
+    data-filepath = ''
+    data-text = ''
+
+></div>
+<!-- end customize -->
+
+
+<style>
+.globe-audio-player button{display:block;width:100%;position:relative;padding:.5em 0;background-color:#f2f2e8;border:1px solid #d9d9d0;border-radius:3px;font-family:'Benton Sans Bold',Helvetica,Arial,sans-serif;font-weight:700;font-size:1em;line-height:1.4;cursor:pointer;-moz-transition:background-color .25s ease;-webkit-transition:background-color .25s ease;transition:background-color .25s ease;z-index:1}.globe-audio-player button:hover{background-color:#d9d9d0}.globe-audio-player button:before{content:'';display:inline-block;position:relative;width:15px;height:11px;margin-right:.25em;background-position:center center;background-size:contain;background-repeat:no-repeat;z-index:1}.globe-audio-player button.play:before{background-image:url(https://apps.bostonglobe.com/common/img/play.svg)}.globe-audio-player button.pause:before{background-image:url(https://apps.bostonglobe.com/common/img/pause.svg)}.globe-audio-player button span{position:relative;z-index:1}.globe-audio-player .progress{position:absolute;width:0;height:100%;top:0;left:0;background-color:#e5e5dc;z-index:0}
+</style>
+<script type='text/javascript'>
+function loadJS(e,n){"use strict";var t=window.document.getElementsByTagName("script")[0],o=window.document.createElement("script");return o.src=e,o.async=!0,t.parentNode.insertBefore(o,t),n&&"function"==typeof n&&(o.onload=n),o}!function(){"use strict";var e="https://apps.bostonglobe.com/common/js/jplayer/jquery.jplayer-2.9.2.min.js",n=function(){t(function(e){e||$(".globe-audio-player").each(function(){o(this)})})},t=function(n){window.jQuery.jPlayer?n("loaded"):loadJS(e,function(){n()})},o=function(e){var n=$(e),t=n.attr("data-text"),o=n.attr("data-filepath"),r="";r+='<button class="play">',r+='<div class="progress"></div>',r+="<span>"+t+"</span>",r+="</button>",r+='<div class="player"></div>',n.append(r),a.setup(n,o),n.find("button").on("click",a.toggle)},r=function(e){var n=e.trim(),t=".mp3",o="/Boston",r=-1===n.indexOf(t,n.length-t.length)||0!==n.indexOf(o);if(r)return alert('Incorrect path to MP3. Make sure to paste entire path from "/Boston" through ".mp3".'),!1;if(window.location.hostname.indexOf("prdedit")>-1)return"http://prdedit.bostonglobe.com/r"+n;var a="Content/",i="/WebGraphics/",s=n.indexOf(a)+a.length,l=n.indexOf(i),u=n.substring(s,l),d=n.substring(l+i.length,n.length);return"https://c.o0bg.com/rw/Boston/2011-2020/WebGraphics/"+u+"/BostonGlobe.com/"+d},a={dom:{},url:null,enabled:!1,playing:!1,loaded:!1,toggling:!1,sourceAdded:!1,setup:function(e,n){a.url=r(n),a.dom.button=e.find("button"),a.dom.player=e.find(".player"),a.dom.progress=e.find(".progress"),a.dom.player.jPlayer({swfPath:"https://apps.bostonglobe.com/common/js/jplayer/jquery.jplayer-2.9.2.swf",loop:!1,supplied:"mp3",timeupdate:a.progress,error:function(){console.log("audio error")},abort:function(){console.log("audio abort")},play:function(){a.toggling=!1,a.playing=!0,a.setIcon("pause")},pause:function(){a.toggling=!1,a.playing=!1,a.setIcon("play")},ended:function(){a.playing=!1,a.setIcon("play")}})},load:function(e){a.url=e.url+".mp3",a.addedSource=!1},toggle:function(){var e=function(){a.dom.player.jPlayer(a.playing?"pause":"play")};a.toggling||(a.toggling=!0,a.sourceAdded||(a.sourceAdded=!0,a.dom.player.jPlayer("setMedia",{mp3:a.url})),a.enabled?e():(a.enabled=!0,i.iOS()?a.iosHackThePlanet(e):e()))},iosHackThePlanet:function(e){a.dom.player.jPlayer("setMedia",{mp3:"https://apps.bostonglobe.com/common/audio/empty.mp3"}).jPlayer("pause"),setTimeout(function(){a.dom.player.jPlayer("setMedia",{mp3:a.url}),e()},30)},empty:function(){a.url=null,a.playing=!1,a.loaded=!1,a.toggling=!1,a.sourceAdded=!1},progress:function(e){var n=e.jPlayer.status.duration,t=e.jPlayer.status.currentTime;if(t>0){var o=Math.floor(t/n*1e3)/10,r=Math.min(o,100)+"%";a.dom.progress.css("width",r)}},setIcon:function(e){if(e){var n="play"===e?"pause":"play";a.dom.button.removeClass(n).addClass(e)}else a.dom.button.removeClass("play pause")}},i={Android:function(){return navigator.userAgent.match(/Android/i)},BlackBerry:function(){return navigator.userAgent.match(/BlackBerry/i)},iOS:function(){return navigator.userAgent.match(/iPhone|iPad|iPod/i)},Opera:function(){return navigator.userAgent.match(/Opera Mini/i)},Windows:function(){return navigator.userAgent.match(/IEMobile/i)},any:function(){return i.Android()||i.BlackBerry()||i.iOS()||i.Opera()||i.Windows()}};n()}();
+</script></textarea>
+                <p class='instructions'>
+                    5. Fill out data-filepath with your own:
+                    <br>Example: data-filepath = '/Boston/Content/Metro.../02test/file.mp3'
+                </p>
+                <p class='instructions'>
+                    6. Fill out data-text with what you want the button to say
+                    <br>Example: data-text = 'Cats purring'
+                </p>
+            </section>
+        </div>
+    </body>
+</html>
