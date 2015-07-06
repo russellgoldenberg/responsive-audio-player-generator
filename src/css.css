@@ -1,0 +1,61 @@
+.globe-audio-player {
+	}
+
+.globe-audio-player button {
+	display: block;
+	width: 100%;
+	position: relative;
+	padding: 0.5em 0;
+	background-color: #f2f2e8;
+	border: 1px solid #d9d9d0;
+	border-radius: 3px;
+	font-family: 'Benton Sans Bold', Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 1em;
+	line-height: 1.4;
+	cursor: pointer;
+	-moz-transition: background-color .25s ease;
+	-webkit-transition: background-color .25s ease;
+	transition: background-color .25s ease;
+	z-index: 1;
+}
+
+.globe-audio-player button:hover {
+	background-color: #d9d9d0;
+}
+
+.globe-audio-player button:before {
+	content: '';
+	display: inline-block;
+	position: relative;
+	width: 15px;
+	height: 11px;
+	margin-right: 0.25em;
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+
+.globe-audio-player button.play:before {
+	background-image: url('https://apps.bostonglobe.com/common/img/play.svg');
+}
+
+.globe-audio-player button.pause:before {
+	background-image: url('https://apps.bostonglobe.com/common/img/pause.svg');
+}
+
+.globe-audio-player button span {
+	position: relative;
+	z-index: 1;
+}
+
+.globe-audio-player .progress {
+	position: absolute;
+	width: 0;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: #e5e5dc;
+	z-index: 0;
+}
